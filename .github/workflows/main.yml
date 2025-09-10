@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: dotnet-image 
+      IMAGE_NAME: new-image  
       IMAGE_TAG: latest                  
       ACR_NAME: mycontainerss                
       AZURE_APP_SERVICE: devops-practices
