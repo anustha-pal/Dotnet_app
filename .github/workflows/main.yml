@@ -12,37 +12,36 @@ jobs:
     env:
       IMAGE_NAME: dotnet-image 
       IMAGE_TAG: latest                  
-      ACR_NAME: dotappacr                
-      AZURE_APP_SERVICE: myappservice    # Azure App Service
-      RESOURCE_GROUP: myResourceGroup    # Azure Resource Group
+      ACR_NAME: mycontainerss                
+      AZURE_APP_SERVICE: devops-practices
+      RESOURCE_GROUP: dotnet-project
 
     steps:
-      # 1️⃣ Checkout code (needed for Actions to run)
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Login to Azure
+      
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 3️⃣ Login to ACR
+      
       - name: Login to Azure Container Registry
         run: |
           echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ env.ACR_NAME }}.azurecr.io -u ${{ secrets.ACR_USERNAME }} --password-stdin
 
-      # 4️⃣ Tag existing Docker image for ACR
+      
       - name: Tag Docker Image
         run: |
           docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
-      # 5️⃣ Push Docker image to ACR
+      
       - name: Push Docker Image
         run: |
           docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
-      # 6️⃣ Deploy to Azure App Service
+      
       - name: Deploy to Azure App Service (Container)
         uses: azure/webapps-deploy@v2
         with:
