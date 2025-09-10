@@ -34,7 +34,7 @@ jobs:
         run: docker build -t new-image:latest .
 
       - name: Push Docker Image
-        run: docker push myregistry.azurecr.io/new-image
+        run: docker push myregistry.azurecr.io/new-image:latest
 
       - name: Deploy to Azure App Service (Container)
         uses: azure/webapps-deploy@v2
