@@ -12,7 +12,7 @@ jobs:
     env:                    
       ACR_NAME: mycontainerss                
       AZURE_APP_SERVICE: devops-practices
-      RESOURCE_GROUP: dotnet-project
+      RESOURCE_GROUP: devops-practices_group
 
     steps:
       - name: Checkout repository
