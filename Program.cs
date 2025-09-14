@@ -9,7 +9,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddAuthorization();
 
-        // Add CORS to allow React frontend
+        // Add CORS
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowFrontend",
@@ -20,11 +20,13 @@ public class Program
             );
         });
 
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
 
+        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -33,6 +35,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        // Enable CORS before Authorization
         app.UseCors("AllowFrontend");
 
         app.UseAuthorization();
@@ -56,10 +59,6 @@ public class Program
         })
         .WithName("GetWeatherForecast")
         .WithOpenApi();
-
-        // 👇 Force app to listen on Azure's assigned port
-        var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-        app.Urls.Add($"http://*:{port}");
 
         app.Run();
     }
