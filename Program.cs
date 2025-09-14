@@ -1,4 +1,3 @@
-
 namespace Dotnet_app;
 
 public class Program
@@ -9,6 +8,17 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddAuthorization();
+
+        // Add CORS
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend",
+                policy => policy
+                    .WithOrigins("https://reactfntapp-araugrb6cegfbef4.canadacentral-01.azurewebsites.net")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+            );
+        });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +35,9 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        // Enable CORS before Authorization
+        app.UseCors("AllowFrontend");
+
         app.UseAuthorization();
 
         var summaries = new[]
@@ -34,7 +47,7 @@ public class Program
 
         app.MapGet("/weatherforecast", (HttpContext httpContext) =>
         {
-            var forecast =  Enumerable.Range(1, 5).Select(index =>
+            var forecast = Enumerable.Range(1, 5).Select(index =>
                 new WeatherForecast
                 {
                     Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
