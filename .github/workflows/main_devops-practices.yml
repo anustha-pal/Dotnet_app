@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:                    
-      ACR_NAME: mycontainerss                
-      AZURE_APP_SERVICE: devops-practices
+      ACR_NAME: myprojectacrs                
+      AZURE_APP_SERVICE: dotbackend
       RESOURCE_GROUP: devops-practices_group
 
     steps:
