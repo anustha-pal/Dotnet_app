@@ -11,8 +11,8 @@ jobs:
 
     env:                    
       ACR_NAME: myprojectacrs                
-      AZURE_APP_SERVICE: mydotbackend1
-      RESOURCE_GROUP: devops-practices_group
+      AZURE_APP_SERVICE: mydotbackendservice
+      RESOURCE_GROUP: myproject1
 
     steps:
       - name: Checkout repository
