@@ -11,7 +11,7 @@ jobs:
 
     env:                    
       ACR_NAME: myprojectacrs                
-      AZURE_APP_SERVICE: dotbackend
+      AZURE_APP_SERVICE: mydotbackend1
       RESOURCE_GROUP: devops-practices_group
 
     steps:
