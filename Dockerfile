@@ -14,5 +14,7 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # Azure App Service expects the container to listen on port 80
-EXPOSE 8080
-ENTRYPOINT ["dotnet", "Dotnet_app.dll"]
+EXPOSE 80
+
+# Force Kestrel to bind to port 80
+ENTRYPOINT ["dotnet", "Dotnet_app.dll", "--urls", "http://*:80"]
